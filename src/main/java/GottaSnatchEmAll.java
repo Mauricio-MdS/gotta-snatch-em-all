@@ -1,25 +1,33 @@
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class GottaSnatchEmAll {
 
     static Set<String> newCollection(List<String> cards) {
-        throw new UnsupportedOperationException("Please implement the (static) GottaSnatchEmAll.newCollection() method");
+        return new HashSet<>(cards);
     }
 
     static boolean addCard(String card, Set<String> collection) {
-        throw new UnsupportedOperationException("Please implement the (static) GottaSnatchEmAll.addCard() method");
+        return collection.add(card);
     }
 
     static boolean canTrade(Set<String> myCollection, Set<String> theirCollection) {
-        throw new UnsupportedOperationException("Please implement the (static) GottaSnatchEmAll.canTrade() method");
+        return !myCollection.isEmpty() && !myCollection.containsAll(theirCollection);
     }
 
     static Set<String> commonCards(List<Set<String>> collections) {
-        throw new UnsupportedOperationException("Please implement the (static) GottaSnatchEmAll.commonCards() method");
+        Set<String> common = new HashSet<>(collections.get(0));
+        for (Set<String> collection : collections.subList(1, collections.size()))
+            common.retainAll(collection);
+
+        return common;
     }
 
     static Set<String> allCards(List<Set<String>> collections) {
-        throw new UnsupportedOperationException("Please implement the (static) GottaSnatchEmAll.allCards() method");
+        return collections.stream()
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 }
